@@ -4,16 +4,16 @@ import { getUserById } from "../repositories/usersRepository.js";
 dotenv.config();
 
 export async function authValidation(req, res, next) {
-  const { authorization } = req.headers;
+	const { authorization } = req.headers;
 
-  const token = authorization?.replace("Bearer ", "");
+	const token = authorization?.replace("Bearer ", "");
 
-  if (!token) {
-    return res.sendStatus(401);
-  }
+	if (!token) {
+		return res.sendStatus(401);
+	}
 
-  try {
-    jwt.verify(token, process.env.SECRET_JWT, async (error, decoded) => {
+	try {
+		jwt.verify(token, process.env.SECRET_JWT, async (error, decoded) => {
 			if (error) {
 				return res.sendStatus(401);
 			}
@@ -23,7 +23,8 @@ export async function authValidation(req, res, next) {
 				return res.sendStatus(401);
 			}
 
-			delete user.password;
+			delete user.rows[0].password;
+			delete user.rows[0].createdAt;
 			res.locals.user = user.rows[0];
 
 			return next();
@@ -31,5 +32,4 @@ export async function authValidation(req, res, next) {
 	} catch (error) {
 		return res.status(500).send(error.message);
 	}
-
 }
