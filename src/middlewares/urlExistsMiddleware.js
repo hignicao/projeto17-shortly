@@ -23,10 +23,6 @@ export async function urlExists(req, res, next) {
 			return res.status(404).send("Url not found");
 		}
 
-		delete urlByLink.rows[0].visitCount;
-		delete urlByLink.rows[0].userId;
-		delete urlByLink.rows[0].createdAt;
-
 		res.locals.url = urlByLink.rows[0];
 	}
 

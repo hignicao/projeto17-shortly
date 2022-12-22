@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { findUrlById, postShortUrl } from '../repositories/urlsRepository.js';
+import { addOneVisit, findUrlById, postShortUrl } from '../repositories/urlsRepository.js';
 
 export async function shortenUrl(req, res) {
   const { url } = req.body;
@@ -19,6 +19,17 @@ export async function getUrlById(req, res) {
 
   try {
     res.status(200).send(url)
+  } catch (error) {
+    res.sendStatus(500)
+  }
+}
+
+export async function openShortUrl(req, res) {
+  const { id, url, visitCount } = res.locals.url
+
+  try {
+    await addOneVisit(id, visitCount+1)
+    res.redirect(url)
   } catch (error) {
     res.sendStatus(500)
   }
