@@ -17,7 +17,7 @@ export async function signUpValidation(req, res, next) {
 	}
 
 	delete user.confirmPassword;
-	req.user = user;
+	req.locals.user = user;
 
 	next();
 }
