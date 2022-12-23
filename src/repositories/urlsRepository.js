@@ -53,5 +53,5 @@ export function buildRanking() {
     GROUP BY users.id
     ORDER BY "visitCount" DESC
     LIMIT 10;`
-  )
+  );
 }

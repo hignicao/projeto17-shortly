@@ -10,6 +10,6 @@ urlsRouter.post("/urls/shorten", authValidation, shortenUrl);
 urlsRouter.get("/urls/:id", urlExists, getUrlById);
 urlsRouter.get("/urls/open/:shortUrl", urlExists, openShortUrl);
 urlsRouter.delete("/urls/:id", authValidation, urlExists, isUserOwner, deleteShortUrl);
-urlsRouter.get("/ranking", getRanking)
+urlsRouter.get("/ranking", getRanking);
 
 export default urlsRouter;
