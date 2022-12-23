@@ -26,3 +26,17 @@ export function addOneVisit(id, visitCount) {
     [visitCount, id]
   );
 }
+
+export function deleteUrl(id) {
+  return connectionDB.query(
+    `DELETE FROM urls WHERE id=$1`,
+    [id]
+  );
+}
+
+export function findUrlOwner(urlId, userId) {
+  return connectionDB.query(
+    `SELECT * FROM urls WHERE id=$1 AND "userId"=$2`,
+    [urlId, userId]
+  );
+}
