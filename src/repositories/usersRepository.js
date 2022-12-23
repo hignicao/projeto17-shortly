@@ -1,11 +1,17 @@
 import { connectionDB } from "../database/db.js";
 
 export function getUserById(id) {
-	return connectionDB.query(`SELECT * FROM users WHERE id=$1`, [id]);
+	return connectionDB.query(
+		`SELECT * FROM users WHERE id=$1`,
+		[id]
+	);
 }
 
 export function getUserByEmail(email) {
-	return connectionDB.query(`SELECT * FROM users WHERE email=$1`, [email]);
+	return connectionDB.query(
+		`SELECT * FROM users WHERE email=$1`,
+		[email]
+	);
 }
 
 export function createUser(user) {
@@ -28,6 +34,7 @@ export function getMyLinks(id) {
 			   	'url', urls.url,
 			  	'visitCount', urls."visitCount"
 				)
+				ORDER BY urls.id
 			) AS "shortenedUrls"
 		FROM urls
 		JOIN users ON users.id=urls."userId"
