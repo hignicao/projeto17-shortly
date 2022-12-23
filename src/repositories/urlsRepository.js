@@ -40,3 +40,18 @@ export function findUrlOwner(urlId, userId) {
     [urlId, userId]
   );
 }
+
+export function buildRanking() {
+  return connectionDB.query(
+    `SELECT
+      users.id,
+      users.name,
+      COUNT(urls.id) AS "linksCount",
+      SUM(urls."visitCount") AS "visitCount"
+    FROM urls
+    JOIN users ON users.id=urls."userId"
+    GROUP BY users.id
+    ORDER BY "visitCount" DESC
+    LIMIT 10;`
+  )
+}

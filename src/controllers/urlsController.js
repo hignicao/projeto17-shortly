@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { addOneVisit, deleteUrl, findUrlById, postShortUrl } from '../repositories/urlsRepository.js';
+import { addOneVisit, buildRanking, deleteUrl, findUrlById, postShortUrl } from '../repositories/urlsRepository.js';
 
 export async function shortenUrl(req, res) {
   const { url } = req.body;
@@ -42,6 +42,16 @@ export async function deleteShortUrl(req, res) {
   try {
     await deleteUrl(url.id)
     res.sendStatus(204)
+  } catch (error) {
+    res.sendStatus(500)
+  }
+}
+
+export async function getRanking(req, res) {
+
+  try {
+    const ranking = await buildRanking()
+    res.status(200).send(ranking.rows)
   } catch (error) {
     res.sendStatus(500)
   }
