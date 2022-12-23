@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { createUser } from "../repositories/usersRepository.js";
+import { createUser, getMyLinks } from "../repositories/usersRepository.js";
 
 export async function signUp(req, res) {
 	const user = res.locals.user;
@@ -20,6 +20,17 @@ export async function signIn(req, res) {
 
 	try {
 		res.send({ ...user, token: token });
+	} catch (error) {
+		res.sendStatus(500);
+	}
+}
+
+export async function getUserLinks(req, res) {
+	const user = res.locals.user;
+
+	try {
+		const myData = await getMyLinks(user.id);
+		res.status(200).send(myData.rows[0]);
 	} catch (error) {
 		res.sendStatus(500);
 	}
