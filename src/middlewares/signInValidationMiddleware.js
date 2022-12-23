@@ -25,7 +25,7 @@ export async function signInValidation(req, res, next) {
 
 	delete user.rows[0].password;
 	delete user.rows[0].createdAt;
-	req.locals.user = user.rows[0];
+	res.locals.user = user.rows[0];
 
 	next();
 }

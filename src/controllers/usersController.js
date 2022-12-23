@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { createUser } from "../repositories/usersRepository.js";
 
 export async function signUp(req, res) {
-	const user = req.locals.user;
+	const user = res.locals.user;
 
 	try {
 		const hashPassword = bcrypt.hashSync(user.password, 10);
@@ -15,7 +15,7 @@ export async function signUp(req, res) {
 }
 
 export async function signIn(req, res) {
-	const user = req.locals.user;
+	const user = res.locals.user;
 	const token = jwt.sign({ id: user.id }, process.env.SECRET_JWT, { expiresIn: 86400 });
 
 	try {
