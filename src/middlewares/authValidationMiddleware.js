@@ -20,7 +20,7 @@ export async function authValidation(req, res, next) {
 
 			const user = await getUserById(decoded.id);
 			if (user.rowCount === 0) {
-				return res.sendStatus(401);
+				return res.sendStatus(404);
 			}
 
 			delete user.rows[0].password;
